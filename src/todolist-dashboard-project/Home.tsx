@@ -67,6 +67,10 @@ const Home = () => {
 		]);
 	};
 
+	const handleDeleteTask = (id: number) => {
+		setTasks(tasks.filter((item) => item.id !== id));
+	};
+
 	const visibleTasks = selectProjectId
 		? tasks.filter((item) => item.project_id === selectProjectId)
 		: tasks;
@@ -97,7 +101,10 @@ const Home = () => {
 					/>
 				</div>
 				<div>
-					<CustomListTasks tasks={visibleTasks} />
+					<CustomListTasks
+						tasks={visibleTasks}
+						onDelete={handleDeleteTask}
+					/>
 				</div>
 				<div>
 					<button
