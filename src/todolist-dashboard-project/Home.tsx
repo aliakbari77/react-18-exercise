@@ -41,6 +41,7 @@ const Home = () => {
 	const [showAddProjectForm, setShowAddForm] = useState(false);
 	const [selectProjectId, setSelectProjectId] = useState(0);
 	const [showAddTaskForm, setShowAddTaskForm] = useState(false);
+	const [editItemId, setEditItemId] = useState(0);
 
 	const handleAddProject = (title: string) => {
 		setProjects([
@@ -69,6 +70,11 @@ const Home = () => {
 
 	const handleDeleteTask = (id: number) => {
 		setTasks(tasks.filter((item) => item.id !== id));
+	};
+
+	const handleEditTask = (id: number, newText: string) => {
+		console.log(id, newText)
+		setTasks(tasks.map(item => item.id === id ? {...item, text: newText} : item))
 	};
 
 	const visibleTasks = selectProjectId
@@ -104,6 +110,10 @@ const Home = () => {
 					<CustomListTasks
 						tasks={visibleTasks}
 						onDelete={handleDeleteTask}
+						onEditId={editItemId}
+						setEditId={(id: number) => {setEditItemId(id)}}
+						onEdit={handleEditTask}
+						setNullId={() => setEditItemId(0)}
 					/>
 				</div>
 				<div>
