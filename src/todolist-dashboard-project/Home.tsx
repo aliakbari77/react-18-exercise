@@ -3,6 +3,7 @@ import CustomListProject from "./CustomListProject";
 import CustomFormAddProject from "./CustomFormAddProject";
 import CustomListTasks from "./CustomListTasks";
 import CustomFormAddTask from "./CustomFormAddTask";
+import CustomSearchInput from "./CustomSearchInput";
 
 interface Project {
 	id: number;
@@ -30,18 +31,19 @@ const Home = () => {
 		{
 			project_id: 1,
 			id: 1,
-			text: "task 1 for project 1",
+			text: "project 1 - server ui",
 		},
 		{
 			project_id: 2,
 			id: 2,
-			text: "task 1 for project 2",
+			text: "project 2 - back end",
 		},
 	]);
 	const [showAddProjectForm, setShowAddForm] = useState(false);
 	const [selectProjectId, setSelectProjectId] = useState(0);
 	const [showAddTaskForm, setShowAddTaskForm] = useState(false);
 	const [editItemId, setEditItemId] = useState(0);
+	const [searchValue, setSearchValue] = useState("");
 
 	const handleAddProject = (title: string) => {
 		setProjects([
@@ -73,13 +75,26 @@ const Home = () => {
 	};
 
 	const handleEditTask = (id: number, newText: string) => {
-		console.log(id, newText)
-		setTasks(tasks.map(item => item.id === id ? {...item, text: newText} : item))
+		console.log(id, newText);
+		setTasks(
+			tasks.map((item) =>
+				item.id === id ? { ...item, text: newText } : item
+			)
+		);
+	};
+
+	const handleSearchTask = (searchValue: string) => {
+		console.log(searchValue);
+		setSearchValue(searchValue);
 	};
 
 	const visibleTasks = selectProjectId
 		? tasks.filter((item) => item.project_id === selectProjectId)
 		: tasks;
+
+	const searchTasks = searchValue
+		? visibleTasks.filter(item => item.text.includes(searchValue))
+		: visibleTasks;
 
 	return (
 		<>
@@ -107,11 +122,14 @@ const Home = () => {
 					/>
 				</div>
 				<div>
+					<CustomSearchInput onSearch={handleSearchTask} />
 					<CustomListTasks
-						tasks={visibleTasks}
+						tasks={searchTasks}
 						onDelete={handleDeleteTask}
 						onEditId={editItemId}
-						setEditId={(id: number) => {setEditItemId(id)}}
+						setEditId={(id: number) => {
+							setEditItemId(id);
+						}}
 						onEdit={handleEditTask}
 						setNullId={() => setEditItemId(0)}
 					/>
