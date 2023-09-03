@@ -5,7 +5,8 @@ interface Task {
 	project_id: number;
 	id: number;
 	text: string;
-	priority: string;
+	priority: number;
+	completion_status: string;
 }
 
 interface Props {
@@ -41,7 +42,11 @@ const CustomListTasks = ({
 							}}
 						/>
 					) : (
-						<span>{item.text}</span>
+						<div className="">
+							<span>{item.text}</span>
+							{item.priority === 1 ? <span className="text-danger mx-4">high</span> : <span className="text-warning mx-4">medium</span>}
+							<span className="">{item.completion_status}</span>
+						</div>
 					)}
 					<div className="mx-2">
 						<AiOutlineDelete

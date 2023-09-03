@@ -4,6 +4,8 @@ import CustomFormAddProject from "./CustomFormAddProject";
 import CustomListTasks from "./CustomListTasks";
 import CustomFormAddTask from "./CustomFormAddTask";
 import CustomSearchInput from "./CustomSearchInput";
+import CustomSelect from "../todolist-project/CustomSelect";
+import CustomSelectInput from "./CustomSelectInput";
 
 interface Project {
 	id: number;
@@ -14,7 +16,8 @@ interface Task {
 	project_id: number;
 	id: number;
 	text: string;
-	priority: string;
+	priority: number;
+	completion_status: string;
 }
 
 const Home = () => {
@@ -33,13 +36,15 @@ const Home = () => {
 			project_id: 1,
 			id: 1,
 			text: "project 1 - server ui",
-			priority: "high",
+			priority: 1,
+			completion_status: "to do",
 		},
 		{
 			project_id: 2,
 			id: 2,
 			text: "project 2 - back end",
-			priority: "medium",
+			priority: 2,
+			completion_status: "in progress",
 		},
 	]);
 	const [showAddProjectForm, setShowAddForm] = useState(false);
@@ -69,7 +74,8 @@ const Home = () => {
 				project_id: id,
 				id: Date.now(),
 				text: text,
-				priority: "medium",
+				priority: 2,
+				completion_status: "to do",
 			},
 		]);
 	};
@@ -126,7 +132,10 @@ const Home = () => {
 					/>
 				</div>
 				<div>
-					<CustomSearchInput onSearch={handleSearchTask} />
+					<div className="d-flex">
+						<CustomSearchInput onSearch={handleSearchTask} />
+						<CustomSelectInput />
+					</div>
 					<CustomListTasks
 						tasks={searchTasks}
 						onDelete={handleDeleteTask}
