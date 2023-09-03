@@ -9,6 +9,7 @@ const CustomSearchInput = ({ onSearch }: Props) => {
 		<>
 			<input
 				className="form-control mb-3"
+				placeholder="Search task . . ."
 				onChange={(event) => {
 					onSearch(event.target.value);
 				}}

@@ -5,6 +5,7 @@ interface Task {
 	project_id: number;
 	id: number;
 	text: string;
+	priority: string;
 }
 
 interface Props {

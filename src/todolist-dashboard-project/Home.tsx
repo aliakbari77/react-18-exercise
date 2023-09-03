@@ -14,6 +14,7 @@ interface Task {
 	project_id: number;
 	id: number;
 	text: string;
+	priority: string;
 }
 
 const Home = () => {
@@ -32,11 +33,13 @@ const Home = () => {
 			project_id: 1,
 			id: 1,
 			text: "project 1 - server ui",
+			priority: "high",
 		},
 		{
 			project_id: 2,
 			id: 2,
 			text: "project 2 - back end",
+			priority: "medium",
 		},
 	]);
 	const [showAddProjectForm, setShowAddForm] = useState(false);
@@ -66,6 +69,7 @@ const Home = () => {
 				project_id: id,
 				id: Date.now(),
 				text: text,
+				priority: "medium",
 			},
 		]);
 	};
@@ -93,7 +97,7 @@ const Home = () => {
 		: tasks;
 
 	const searchTasks = searchValue
-		? visibleTasks.filter(item => item.text.includes(searchValue))
+		? visibleTasks.filter((item) => item.text.includes(searchValue))
 		: visibleTasks;
 
 	return (
