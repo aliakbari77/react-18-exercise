@@ -52,6 +52,7 @@ const Home = () => {
 	const [showAddTaskForm, setShowAddTaskForm] = useState(false);
 	const [editItemId, setEditItemId] = useState(0);
 	const [searchValue, setSearchValue] = useState("");
+	const [prioritySelect, setPrioritySelect] = useState(NaN);
 
 	const handleAddProject = (title: string) => {
 		setProjects([
@@ -98,6 +99,10 @@ const Home = () => {
 		setSearchValue(searchValue);
 	};
 
+	const handleProritySort = (priority: number) => {
+		setPrioritySelect(priority);
+	};
+
 	const visibleTasks = selectProjectId
 		? tasks.filter((item) => item.project_id === selectProjectId)
 		: tasks;
@@ -105,6 +110,10 @@ const Home = () => {
 	const searchTasks = searchValue
 		? visibleTasks.filter((item) => item.text.includes(searchValue))
 		: visibleTasks;
+
+	const sortByPriority = prioritySelect
+		? searchTasks.filter((item) => item.priority === prioritySelect)
+		: searchTasks;
 
 	return (
 		<>
@@ -134,15 +143,16 @@ const Home = () => {
 				<div className="col-lg-8 col-sm-12 ">
 					<div className="d-flex justify-content-between">
 						<div className="col-4">
-						<CustomSearchInput onSearch={handleSearchTask} />
+							<CustomSearchInput onSearch={handleSearchTask} />
 						</div>
 						<div className="col-4">
-
-						<CustomSelectInput />
+							<CustomSelectInput
+								onSelectPriority={handleProritySort}
+							/>
 						</div>
 					</div>
 					<CustomListTasks
-						tasks={searchTasks}
+						tasks={sortByPriority}
 						onDelete={handleDeleteTask}
 						onEditId={editItemId}
 						setEditId={(id: number) => {
