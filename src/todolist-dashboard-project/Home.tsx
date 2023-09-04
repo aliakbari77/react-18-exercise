@@ -123,18 +123,23 @@ const Home = () => {
 					onShowForm={() => setShowAddTaskForm(false)}
 				/>
 			)}
-			<div className="p-3 d-flex justify-content-between">
-				<div>
+			<div className="p-3 row m-2">
+				<div className="col-lg-2 col-sm-12 mb-2">
 					<CustomListProject
 						projectList={projects}
 						onSelectProject={handleSelectProject}
 						idSelectProject={selectProjectId}
 					/>
 				</div>
-				<div>
-					<div className="d-flex">
+				<div className="col-lg-8 col-sm-12 ">
+					<div className="d-flex justify-content-between">
+						<div className="col-4">
 						<CustomSearchInput onSearch={handleSearchTask} />
+						</div>
+						<div className="col-4">
+
 						<CustomSelectInput />
+						</div>
 					</div>
 					<CustomListTasks
 						tasks={searchTasks}
@@ -147,7 +152,7 @@ const Home = () => {
 						setNullId={() => setEditItemId(0)}
 					/>
 				</div>
-				<div>
+				<div className="col-lg-2 col-sm-12 my-4">
 					<button
 						disabled={showAddTaskForm}
 						className={
