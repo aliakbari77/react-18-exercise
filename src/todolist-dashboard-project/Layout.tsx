@@ -5,7 +5,7 @@ const Layout = () => {
 	return (
 		<>
 			<nav className="navbar navbar-expand-lg navbar-light bg-light p-3">
-				<div className="">
+				<div className="collapse navbar-collapse">
 					<ul className="navbar-nav">
 						<li className="nav-item">
 							<Link className="nav-link" to={"/"}>
